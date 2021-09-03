@@ -4,19 +4,19 @@ import cv2
 
 camera = cv2.VideoCapture('rtsp://freja.hiof.no:1935/rtplive/_definst_/hessdalen03.stream')
 
-app = Flask(__name__)
+app = Flask(_name_)
 
-def gen_frames(): # generate frame by frame from camera
-while True:
-# Capture frame-by-frame
-success, frame = camera.read() # read the camera frame
-if not success:
-break
-else:
-ret, buffer = cv2.imencode('.jpg', frame)
-frame = buffer.tobytes()
-yield (b'--frame\r\n'
-b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n') # concat frame one by one and show result
+def gen_frames():  # generate frame by frame from camera
+    while True:
+        # Capture frame-by-frame
+        success, frame = camera.read()  # read the camera frame
+        if not success:
+            break
+        else:
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
 data = [
         {
@@ -40,6 +40,7 @@ data = [
 def hello():
     return "Hello Flask-Heroku"
 
+
 @app.route('/api', methods=['GET'])
 def get_api():
     return jsonify(data)
@@ -50,7 +51,7 @@ def Home(name):
 
 @app.route('/name')
 def name():
-    return "<font color=Green>ปุญชรัสมิ์</font> <font color=blue>จันทร์กลม</font> <br> <font color=red>เลขที่15 ม.4/10</font> "
+    return "<font color=Green>ปุญชรัสมิ์</font> <font color=blue>จันทร์กลม</font> <br> <font color=red>เลขที่15 ม.4/10</font> "    
 
 @app.route('/video')
 def index():
@@ -60,5 +61,5 @@ def index():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     app.run(debug=True)
