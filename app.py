@@ -6,9 +6,8 @@ camera = cv2.VideoCapture('rtsp://freja.hiof.no:1935/rtplive/_definst_/hessdalen
 
 app = Flask(_name_)
 
-def gen_frames():  # generate frame by frame from camera
+def gen_frames():  
     while True:
-        # Capture frame-by-frame
         success, frame = camera.read()  # read the camera frame
         if not success:
             break
@@ -40,7 +39,6 @@ data = [
 def hello():
     return "Hello Flask-Heroku"
 
-
 @app.route('/api', methods=['GET'])
 def get_api():
     return jsonify(data)
@@ -51,7 +49,7 @@ def Home(name):
 
 @app.route('/name')
 def name():
-    return "<font color=Green>ปุญชรัสมิ์</font> <font color=blue>จันทร์กลม</font> <br> <font color=red>เลขที่15 ม.4/10</font> "    
+    return "<font color=Green>ปุญชรัสมิ์</font> <font color=blue>จันทร์กลม</font> <br> <font color=red>เลขที่15 ม.4/10</font> "
 
 @app.route('/video')
 def index():
