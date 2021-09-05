@@ -4,7 +4,7 @@ import cv2
 
 camera = cv2.VideoCapture('rtsp://freja.hiof.no:1935/rtplive/_definst_/hessdalen03.stream')
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 def gen_frames():  
     while True:
@@ -51,7 +51,7 @@ def Home(name):
 def name():
     return "<font color=Green>ปุญชรัสมิ์</font> <font color=blue>จันทร์กลม</font> <br> <font color=red>เลขที่15 ม.4/10</font> "
 
-@app.route('/video')
+@app.route('/')
 def index():
     return render_template('index.html')
 
@@ -59,5 +59,5 @@ def index():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     app.run(debug=True)
